@@ -34,20 +34,26 @@
             const message = document.getElementById('message').value;
 
             // Отправляем запрос на сервер, который отправит сообщение в бот
-            const response = await fetch('https://your-server.com/api/send-message', {
+            const botToken = '7469543919:AAFAOuvmgbOczSprAhsWlA5Lu-V4llo4eiw'; // Замените на токен вашего бота
+            const message = 'Привет, это сообщение с сайта!';
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    chat_id: chatId,   // Используем chat_id пользователя
-                    text: message      // Сообщение для бота
+                    chat_id: chatId,
+                    text: message
                 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Сообщение отправлено:', data);
+            })
+            .catch(error => {
+                console.error('Ошибка отправки сообщения:', error);
             });
-
-            // Отображаем результат отправки
-            const result = await response.json();
-            document.getElementById('response').innerText = result.status;
         });
     </script>
 </body>
