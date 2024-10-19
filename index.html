@@ -21,9 +21,30 @@
     <script>
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
+        const user = tg.initDataUnsafe.user;
+        const chatId = user.id;
+        
+        document.getElementById('messageForm').addEventListener('submit', async function(event) {
+            event.preventDefault();  // Останавливаем стандартное поведение формы
+
+            // Получаем текст сообщения из формы
+            const message = document.getElementById('message').value;
+function sendDataToBot() {
+    const dataToSend = {method: 'POST',
+    headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+              }
+
+    tg.sendData(JSON.stringify(dataToSend));
+}})
 
         // Получаем user_id из initDataUnsafe
-        const user = tg.initDataUnsafe.user;
+        /*const user = tg.initDataUnsafe.user;
         const chatId = user.id;  // Это и есть user_id, который используется как chat_id для бота
 
         // Форма для отправки сообщения
@@ -53,7 +74,7 @@
             .catch(error => {
                 console.error('Ошибка отправки сообщения:', error);
             });
-        });
+        });*/
     </script>
 </body>
 </html>
