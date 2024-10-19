@@ -7,74 +7,16 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-
-    <h1>Отправка сообщения боту</h1>
-
-    <form id="messageForm">
-        <label for="message">Введите сообщение:</label>
-        <input type="text" id="message" name="message" required>
-        <button type="submit">Отправить</button>
-    </form>
-
-    <p id="response"></p>
+    <h1>Отправить данные в бота</h1>
+    <button id="sendButton">Отправить данные</button>
 
     <script>
-        // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
-        const user = tg.initDataUnsafe.user;
-        const chatId = user.id;
-        
-        document.getElementById('messageForm').addEventListener('submit', async function(event) {
-            event.preventDefault();  // Останавливаем стандартное поведение формы
 
-            // Получаем текст сообщения из формы
-            const message = document.getElementById('message').value;
-function sendDataToBot() {
-    const dataToSend = {method: 'POST',
-    headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
-              }
-
-    tg.sendData(JSON.stringify(dataToSend));
-}})
-
-        // Получаем user_id из initDataUnsafe
-        /*const user = tg.initDataUnsafe.user;
-        const chatId = user.id;  // Это и есть user_id, который используется как chat_id для бота
-
-        // Форма для отправки сообщения
-        document.getElementById('messageForm').addEventListener('submit', async function(event) {
-            event.preventDefault();  // Останавливаем стандартное поведение формы
-
-            // Получаем текст сообщения из формы
-            const message = document.getElementById('message').value;
-
-            // Отправляем запрос на сервер, который отправит сообщение в бот
-            const botToken = '7469543919:AAFAOuvmgbOczSprAhsWlA5Lu-V4llo4eiw'; // Замените на токен вашего бота
-
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Сообщение отправлено:', data);
-            })
-            .catch(error => {
-                console.error('Ошибка отправки сообщения:', error);
-            });
-        });*/
+        document.getElementById("sendButton").addEventListener("click", function() {
+            const data = { message: "Привет из Web App" };
+            tg.sendData(JSON.stringify(data));  // Отправка данных в бота
+        });
     </script>
 </body>
 </html>
